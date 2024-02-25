@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float gravity = 9.8f;
-    public float jumpForse;
-    public float speed;
+    public float Gravity = 9.8f;
+    public float JumpForse;
+    public float Speed;
 
+    [SerializeField] Animator _animator;
 
     private Vector3 _moveVector;
     private float _fallVelocity = 0;
@@ -43,14 +44,23 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
         {
-            _fallVelocity = -jumpForse; 
+            _fallVelocity = -JumpForse; 
         }
     }
     void FixedUpdate()
     {
-        _characterController.Move(_moveVector * speed * Time.fixedDeltaTime);
+        _characterController.Move(_moveVector * Speed * Time.fixedDeltaTime);
 
-        _fallVelocity += gravity * Time.fixedDeltaTime;
+        if( _moveVector.z != 0 || _moveVector.y != 0)
+        {
+            _animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            _animator.SetBool("isMoving", false);
+        }
+
+        _fallVelocity += Gravity * Time.fixedDeltaTime;
         _characterController.Move(Vector3.down * _fallVelocity * Time.fixedDeltaTime);
 
         if (_characterController.isGrounded)

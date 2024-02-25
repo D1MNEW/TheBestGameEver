@@ -7,8 +7,8 @@ public class CameraRotation : MonoBehaviour
     public float SpeedRotation;
     public Transform CameraAxisTransform;
 
-    public float minAngle;
-    public float maxAngle;
+    public float MinAngle;
+    public float MaxAngle;
     void Start()
     {
         
@@ -23,7 +23,7 @@ public class CameraRotation : MonoBehaviour
 
         if (NewAngleX > 180)
             NewAngleX -= 360;
-        NewAngleX = Mathf.Clamp(NewAngleX, minAngle, maxAngle);
+        NewAngleX = Mathf.Clamp(NewAngleX, MinAngle, MaxAngle);
 
         CameraAxisTransform.localEulerAngles = new Vector3(NewAngleX, 0, 0);
     }
