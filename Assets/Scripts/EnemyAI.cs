@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public List<Transform> PatrolPoints;
     public float ViewAngle;
     public float Damage = 30;
+    public Animator Animator;
 
     private NavMeshAgent _navMeshAgent;
     private bool _isPlayerNoticed;
@@ -41,7 +42,12 @@ public class EnemyAI : MonoBehaviour
         {
             if(_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
             {
+                Animator.SetTrigger("attack");
                 _playerHealth.DealDamage(Damage * Time.deltaTime);
+            }
+            else
+            {
+                Animator.ResetTrigger("attack");
             }
         }
     }
